@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Text Display/Edit</title>
+	<style>
+		/* Set the body to display as a flex container with column direction */
+		body {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			/* Set the height to 100% of the viewport height */
+			margin: 0;
+			/* Remove default margin */
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Display instructions for editing and saving text -->
+	<div>Press "ctrl + e" to edit text.</div>
+	<div>Press "ctrl + s" to save text.</div>
+	<br> <!-- Add a line break -->
+	<!-- Display the text that can be edited -->
+	<div id="textDisplay" tabindex="0">This is some text.</div>
+
+	<script>
+		// Get the text display element
+		let textDisplay = document.querySelector("#textDisplay");
+		// Create a textarea element for editing the text
+		let textArea = document.createElement("textarea");
+		// Set the initial value of the textarea to the current text
+		textArea.value = textDisplay.textContent;
+
+		// Add an event listener for keydown events
+		document.addEventListener("keydown", function (event) {
+			// Check if the ctrl and e keys were pressed
+			if (event.ctrlKey && event.key === "e") {
+				event.preventDefault(); // Prevent the default action
+				// Replace the text display with the textarea for editing
+				textDisplay.replaceWith(textArea);
+				// Focus on the textarea
+				textArea.focus();
+			} else if (event.ctrlKey && event.key === "s") { // Check if the ctrl and s keys were pressed
+				event.preventDefault(); // Prevent the default action
+				// Update the text display with the edited text
+				textDisplay.textContent = textArea.value;
+				// Replace the textarea with the updated text display
+				textArea.replaceWith(textDisplay);
+			}
+		});
+	</script>
+</body>
+
+</html>
